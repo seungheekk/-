@@ -117,7 +117,7 @@ $ git show HEAD~3^^
 - * 버그를 수정하거나   
 - *새로운 아이디를 안전하게 실험 가능  
   
-
+  
 #####기본 브랜치 (default branch)  
  -이름 기본이 main  
   * 저장소가 생성될 때 자동으로 생성되는  base 브랜치  
@@ -151,8 +151,7 @@ $ git switch -c <new-branch>
  : 브랜치를 변경하고 해당 파일을 워킹 디렉토리로 복사한다.  
  $ git checkout master  
   * 브랜치 이동  
- 
- 
+  
    
 ---
 ### :octocat:switch 명령어  
@@ -160,9 +159,52 @@ $ git switch -c <new-branch>
 : 변경한 내용을 취소하고 이전 브랜치로 돌아갈 수 있습니다  
 ---
 ### :octocat:fast for ward  merge 명령어  
+fast for merge  
+ : 현재 브랜치의 commit을 대상 브랜치의  commit까지 옮기는 작업이다.  
+   
+ * Fast Forward Merge의 한계점  
+  - Fast forward Merage는 중간에 변경이 없을 때만 동작한다. 
+   
   
 ---
 ### :octocat:3-way merge   
-  
+  기준 커밋이 hotfix와 master브랜치로 서로 분기가 되어 갈라지면 
+ -두 브랜치를 병합하려면 먼저 분활 기준인 공통 커밋을 찾아야 한다. (깃이 자동으로 찾아줌.)  
+ 1. 공통 조상 커밋  
+ 2. 부모 커밋 A  
+ 3. 부모 커밋 B  
+   
+- [x] 공통 조상 커밋을 기주으로 두 부모 브랜치의 커밋 내용을 반영해서 새로운 병합 커밋을 만듭니다.  
 ---
-### :octocat:rebase 명령어
+### :octocat:rebase 명령어  
+- [x] rebase 의 --를 사용  
+ rebase의 --interative를 사용하여 커밋 시퀸스를 새로운 기봄 커밋에 결합  
+   
+ - HEAD~3: 수정할 커밋의 직전 커밋, 실제 HEAD ~ 2부터 수정 가능  
+   
+ * $ git rebase -i HEAD~3  
+     
+ $ git rebase <newparent> <branch>  
+ * 일반 적 rebase방법: topic에서 main을 재배치 방법  
+ > $ git checkout topic  
+ > $ git rebase main  
+ > $ git checkout main  
+ > $ git merge topic  
+   
+     
+ 다른 rebase 방법: 브랜치 어디에서든 main topic 순서로 재배치 방법  
+ - > git rebase main topic    편리함.
+ > $ git checkout main  
+ > $ git merge topic  
+  
+ $ git rebase <newparent> <branch>
+<branch>에서 <newparent> 브랜치의 최근 커밋 이후에 <branch>를 배치해 선형 병합
+   
+- [x] rebase  
+ - 히스토리가 선형으로 단순해지고 좀 더 깨끗한 이력을 남김.  
+ - 정확한 이력을 남겨야 할 필요가 있을 경우에는 사용하면 안됨.  
+   
+ 명령 rebase <선행 브랜치>  
+ $ git rebase main -> main -> git merge topic  
+ 
+ 
